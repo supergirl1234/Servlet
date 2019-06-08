@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--注册自定义属性编辑器给spring容器-->
+    <bean id="myPropertyEditor" class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+       <property name="customEditors">
+           <map>
+               <entry key="java.util.Date" value="com.PropertyEdit"/>
+           </map>
+       </property>
+
+    </bean>
+</beans>

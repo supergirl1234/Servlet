@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--抽象类-->
+
+    <bean id="myAbstract" abstract="true">
+
+        <property name="id" value="1"/>
+        <property name="name" value="张三"/>
+
+    </bean>
+    <bean id="bean2" class="com.Bean2" parent="myAbstract">
+
+        <property name="password" value="123456"/>
+    </bean>
+    <bean id="bean3" class="com.Bean3" parent="myAbstract">
+
+        <property name="age" value="12"/>
+    </bean>
+    <bean id="bean4" class="com.Bean4">
+        <property name="address" value="陕西"/>
+    </bean>
+
+    <bean id="beantotal" class="com.BeanTotal" scope="prototype">
+           <property name="bean2" ref="bean2"/>
+           <property name="bean3" ref="bean3"/>
+           <property name="bean4" ref="bean4"/>
+
+    </bean>
+</beans>
