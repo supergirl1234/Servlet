@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="myEdit" class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+
+        <property name="customEditors"><!--CustomEditorConfigurer中有一个属性customEditors，他是一个Map类型，Map的键值对应着转换类型和编辑器（Key代表转换类型，Value对应着编辑器）-->
+            <map>
+                <entry key="java.util.Date" value="com.PropertyEdit"/>
+            </map>
+        </property>
+    </bean>
+
+</beans>

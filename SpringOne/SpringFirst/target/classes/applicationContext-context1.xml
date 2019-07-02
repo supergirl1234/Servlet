@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+   <!--可以单独将注册自定义编辑器的的部分单独放在一个xml文件中-->
+    <!--CustomEditorConfigurer类用于实现在Spring中注册自己定义的编辑器-->
+
+    <!--<bean id="myEdit" class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+
+        <property name="customEditors">&lt;!&ndash;CustomEditorConfigurer中有一个属性customEditors，他是一个Map类型，Map的键值对应着转换类型和编辑器（Key代表转换类型，Value对应着编辑器）&ndash;&gt;
+            <map>
+                <entry key="java.util.Date" value="com.PropertyEdit"/>
+            </map>
+        </property>
+    </bean>
+-->
+
+    <!-- 用来管理类与对象之间的关系-->
+    <bean id="bean1" class="com.Bean1">
+        <property name="id" value="1"/>
+        <property name="name" value="张三"/>
+        <property name="strArray">
+            <array>
+                <value>金毛</value>
+                <value>拉布拉多</value>
+                <value>法斗</value>
+                <value>柯基</value>
+            </array>
+        </property>
+
+        <property name="list">
+            <list>
+                <value>王五</value>
+                <value>汇集</value>
+                <value>火腿肠</value>
+            </list>
+        </property>
+
+        <property name="set">
+            <set>
+                <value>英国短猫</value>
+                <value>橘猫</value>
+                <value>大肥猫</value>
+            </set>
+        </property>
+
+        <property name="map">
+            <map>
+                <entry key="1" value="java"/>
+                <entry key="2" value="C++"/>
+                <entry key="3" value="Go"/>
+                <entry key="4" value="Python"/>
+            </map>
+        </property>
+        <!--Date类型的和其他类型的数据有所不同，必须自定义属性编辑器来转换Date类型-->
+      <property name="date" value="2017-09-07"/>
+    </bean>
+
+
+</beans>

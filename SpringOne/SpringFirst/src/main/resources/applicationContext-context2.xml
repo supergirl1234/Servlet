@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+  <!--  <bean id="new1" class="com.New1">
+
+        <property name="new2" ref="new2"/>
+        <property name="new3" ref="new3"/>
+        <property name="new4" ref="new4"/>
+    </bean>
+
+    <bean id="new2" class="com.New2">
+        <property name="id" value="1"/>
+        <property name="name" value="张三"/>
+        <property name="address" value="陕西"/>
+    </bean>
+
+
+    <bean id="new3" class="com.New3">
+        <property name="hobby" value="跳舞"/>
+        <property name="skill" value="毛笔字"/>
+    </bean>
+
+    <bean id="new4" class="com.New4">      &lt;!&ndash;发现NEW2与NEW4属性有相同的地方，则可以将相同属性集合成一个抽象类&ndash;&gt;
+        <property name="id" value="1"/>
+        <property name="name" value="张三"/>
+    </bean>-->
+
+
+    <!--还可以以下面方式写-->
+    <bean id="new1" class="com.New1">
+
+        <property name="new2" ref="new2"/>
+        <property name="new3" ref="new3"/>
+        <property name="new4" ref="new4"/>
+    </bean>
+
+    <!--将相同属性集合成一个抽象类-->
+    <bean id="MyAbstract" abstract="true">
+
+        <property name="id" value="1"/>
+        <property name="name" value="张三"/>
+    </bean>
+
+    <bean id="new2" class="com.New2" parent="MyAbstract">
+
+        <property name="address" value="陕西"/>
+    </bean>
+
+
+    <bean id="new3" class="com.New3">
+        <property name="hobby" value="跳舞"/>
+        <property name="skill" value="毛笔字"/>
+    </bean>
+
+    <bean id="new4" class="com.New4" parent="MyAbstract">
+
+    </bean>
+
+</beans>
