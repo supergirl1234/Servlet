@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mapper.UserMapper">
+
+    <!--相同的部分太多，可以将相同部分写成一个sql片段-->
+    <!--sql片段-->
+    <sql id="mysqlId">
+        <if test="username!=null">
+             username like #{username}
+        </if>
+
+        <if test="sex!=null">
+            and  sex like #{sex}
+        </if>
+    </sql>
+
+
+    <select id="queryById" parameterType="int" resultType="com.po.User">
+        select id,username as myname,address from user where id=#{myId};
+    </select>
+
+
+    <!--多条件查询-->
+    <select id="queryUserBySexAndName" parameterType="com.po.UserEx" resultType="com.po.UserEx">
+       select * from user where username like #{username} and sex=#{sex};/*有两个参数*//*这个地方的username指的是UserEx的username，sex也是UserEx的sex*/
+
+
+</select>
+
+    <select id="queryUserBySexAndName2" parameterType="com.po.UserEx" resultType="com.po.UserEx">
+
+        /*还可以按照下面的方式写*/
+        select * from user
+        <where>
+          <!--  <if test="username !=null">
+                 and username like #{username}
+
+            </if>
+           <if test="sex !=null">
+                and  sex = #{sex}
+            </if>-->
+
+
+
+            /*引用sql片段*/
+            <include refid="mysqlId"/>
+        </where>
+    </select>
+
+
+    <!--动态sql-->
+
+    <!--select * from user where id=1 or id=22 or id=24;
+        select * from user where (1==1) and (id=1 or id=22 or id=24);-->
+    <select id="queryManyId" parameterType="com.po.UserBZ" resultType="com.po.User">
+
+        select * from user
+        <where>
+            <if test="ids !=null">
+
+               <foreach collection="ids" item="everyId" open="and (" close=")" separator="or">
+                   id=#{everyId}
+               </foreach>
+            </if>
+
+
+        </where>
+    </select>
+
+
+    <!--select * from user where id in(1,22,24);-->
+
+    <select id="queryManyId2" parameterType="com.po.UserBZ" resultType="com.po.User">
+
+        select * from user
+        <where>
+            <if test="ids !=null">
+
+                <foreach collection="ids" item="everyId" open=" id in(" close=")" separator=",">
+                    #{everyId}
+                </foreach>
+            </if>
+        </where>
+
+    </select>
+
+
+    <!--测试resultMap-->
+    <!--自定义-->
+    <!--数据库中的属性名与别名一一对应-->
+    <resultMap id="myMap" type="com.po.User"><!--column代表的是别名，property代表的是数据库中的属性名-->
+        <id column="id_" property="id"/>
+        <result column="username_" property="username"/>
+        <result column="sex_" property="sex"/>
+        <result column="address_" property="address"/>
+
+    </resultMap>
+
+    <!--将属性名起了别名,则返回结果就不能用resultType，而应该用resultMap-->
+    <select id="queryUserResultMap" parameterType="int" resultMap="myMap">
+        select user.id id_,user.username username_,user.sex sex_,user.address address_  from user where id=#{myId};
+    </select>
+
+
+
+
+
+
+
+    <!--第四个查询，查询orders、user、orderdetail、items表-->
+    <!--返回的类型（Type）是什么，是基于需求的-->
+    <!--可以看成是，通过orders表查询Items表-->
+    <!--也可以看成是，通过user表查询Items表-->
+
+    <resultMap id="OrderUserRM4" type="com.po.User">
+        <!--配置用户信息-->
+        <id column="user_id" property="id"/><!--如果该表查询时没有查询主键，则看其相关联的表中是否含有与该表的主键相关联的键-->
+        <result column="user_name" property="username"/>
+        <result column="user_sex" property="sex"/>
+        <result column="user_address" property="address"/>
+        <!--配置订单信息order 1:m-->
+        <collection property="ordersList" ofType="com.po.Orders">
+
+            <id column="id" property="id"/><!--主键-->
+            <result column="user_id" property="user_id"/>
+            <result column="number" property="number"/>
+            <result column="createtime" property="createtime"/>
+            <result column="note" property="note"/>
+
+            <!--配置订单明细信息orderdetail--><!--orderdetail是与order有直接关系的，所以写在order内部  1：m-->
+            <collection property="orderDetailList" ofType="com.po.OrderDetail">
+               <id column="orderdetail_id" property="id"/><!--主键-->
+                <result column="orders_id" property="orders_id"/>
+
+                <!--或者下面也可以-->
+                <!-- <id column="orders_id" property="orders_id"/>
+                 <result column="orderdetail_id" property="id"/>主键-->
+
+                <result column="items_id" property="items_id"/>
+                <result column="items_num" property="items_num"/>
+                <!--配置商品信息 1：1-->
+                <association property="items" javaType="com.po.Items">
+                    <id column="itemsid" property="id"/><!--主键-->
+                    <result column="items_name" property="name"/>
+                    <result column="items_price" property="price"/>
+                </association>
+
+            </collection>
+        </collection>
+
+    </resultMap>
+
+    <select id="queryUserOrderOrderDetailItems" resultMap="OrderUserRM4">
+
+        select orders.*,
+                user.username as user_name,
+                user.sex as user_sex,
+                user.address as user_address,
+                orderdetail.id as orderdetail_id,
+                orderdetail.orders_id,
+                orderdetail.items_id,
+                orderdetail.items_num,
+                items.id as itemsid,
+                items.name as items_name,
+                items.price as items_price
+        from orders,user,orderdetail,items
+        where orders.user_id=user.id
+              and
+                orders.id=orderdetail.orders_id
+              and
+                 orderdetail.items_id=items.id;
+
+    </select>
+</mapper>

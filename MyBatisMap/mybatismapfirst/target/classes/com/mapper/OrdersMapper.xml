@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper  namespace="com.mapper.OrdersMapper">
+
+    <!--在查询表时，一次性查询了多个表-->
+
+    <!--第一种方法--><!--再创建一个OrdersEx类，在OrdersEx类中添加User的属性-->
+    <resultMap id="OrderUserRM" type="com.po.OrdersEx">
+        <id column="id" property="id"/><!--只要用了resultMap，没有起别名也要映射-->
+        <result column="user_id" property="user_id"/>
+        <result column="number" property="number"/>
+        <result column="createtime" property="createtime"/>
+        <result column="note" property="note"/>
+        <result column="user_name" property="username"/>
+        <result column="user_sex" property="sex"/>
+        <result column="user_address" property="address"/>
+
+
+    </resultMap>
+    <select id="queryOrderUser"  resultMap="OrderUserRM"> /*查orders表，orders表是主表*/
+
+        select orders.*,
+                user.username as user_name,
+                user.sex as user_sex,
+                user.address as user_address
+        from orders,user
+        where orders.user_id=user.id;
+
+    </select>
+
+
+
+   <!--第二种方法--><!--直接在Orders表中，添加User 对象-->
+
+
+    <resultMap id="OrderUserRM2" type="com.po.Orders">
+        <id column="id" property="id"/><!--只要用了resultMap，没有起别名也要映射-->
+        <result column="user_id" property="user_id"/>
+        <result column="number" property="number"/>
+        <result column="createtime" property="createtime"/>
+        <result column="note" property="note"/>
+
+        <association property="user" javaType="com.po.User"><!-- property="user"中的名字是Orders类中的User对象的名字-->
+            <id column="user_id" property="id"/>
+            <result column="user_name" property="username"/>
+            <result column="user_sex" property="sex"/>
+            <result column="user_address" property="address"/>
+        </association>
+
+</resultMap>
+
+    <select id="queryOrderUser2"  resultMap="OrderUserRM2"> /*查orders表，orders表是主表*/
+
+        select orders.*,
+                user.username as user_name,
+                user.sex as user_sex,
+                user.address as user_address
+        from orders,user
+        where orders.user_id=user.id;
+
+    </select>
+
+
+    <!--第三个查询，查询orders、user、orderdetail表-->
+
+    <resultMap id="OrderUserRM3" type="com.po.Orders">
+        <id column="id" property="id"/><!--只要用了resultMap，没有起别名也要映射-->
+        <result column="user_id" property="user_id"/>
+        <result column="number" property="number"/>
+        <result column="createtime" property="createtime"/>
+        <result column="note" property="note"/>
+
+        <!--1:1-->
+        <association property="user" javaType="com.po.User"><!-- property="user"中的名字是Orders类中的User对象的名字-->
+            <id column="user_id" property="id"/><!--这个地方填的是该表的主键--><!--也是与查询的主表相关联的键-->
+            <result column="user_name" property="username"/>
+            <result column="user_sex" property="sex"/>
+            <result column="user_address" property="address"/>
+        </association>
+        <!--1:m-->
+        <collection property="orderDetailList" ofType="com.po.OrderDetail">
+            <id column="orders_id" property="orders_id"/><!--主外键关联的字段-->
+            <result column="orderdetail_id" property="id"/>
+
+        </collection>
+
+    </resultMap>
+
+    <select id="queryOrderUserOrderDetail" resultMap="OrderUserRM3">
+
+        select orders.*,
+                user.username as user_name,
+                user.sex as user_sex,
+                user.address as user_address,
+                orderdetail.id as orderdetail_id,
+                orderdetail.orders_id
+        from orders,user,orderdetail
+        where orders.user_id=user.id
+              and orders.id=orderdetail.orders_id;
+
+    </select>
+
+
+
+
+    <!--第五个查询 -->
+
+    <resultMap id="OrderUserRM5" type="com.po.Orders">
+        <id column="id" property="id"/><!--只要用了resultMap，没有起别名也要映射-->
+        <result column="user_id" property="user_id"/>
+        <result column="number" property="number"/>
+        <result column="createtime" property="createtime"/>
+        <result column="note" property="note"/>
+
+        <!--1:1-->
+        <association property="user" javaType="com.po.User"><!-- property="user"中的名字是Orders类中的User对象的名字-->
+            <id column="user_id" property="id"/><!--这个地方填的是该表的主键--><!--也是与查询的主表相关联的键-->
+            <result column="user_name" property="username"/>
+            <result column="user_sex" property="sex"/>
+            <result column="user_address" property="address"/>
+        </association>
+        <!--1:m-->
+        <collection property="orderDetailList" ofType="com.po.OrderDetail">
+            <id column="orders_id" property="orders_id"/><!--主外键关联的字段-->
+            <result column="orderdetail_id" property="id"/>
+
+            <association property="items" javaType="com.po.Items">
+                <id column="itemsid" property="id"/>
+                <result column="items_name" property="name"/>
+                <result column="items_price" property="price"/>
+
+            </association>
+
+        </collection>
+
+    </resultMap>
+
+    <select id="queryOrderUserOrderDetailItems" resultMap="OrderUserRM5">
+
+        select orders.*,
+                user.username as user_name,
+                user.sex as user_sex,
+                user.address as user_address,
+                orderdetail.id as orderdetail_id,
+                orderdetail.orders_id,
+                items.id as itemsid,
+                items.name as items_name,
+                items.price as items_price
+        from orders,user,orderdetail,items
+        where orders.user_id=user.id
+              and orders.id=orderdetail.orders_id
+              and orderdetail.items_id=items.id;
+
+    </select>
+
+   
+</mapper>
