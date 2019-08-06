@@ -1,0 +1,52 @@
+-------------------------------------------------------------------------------
+Test set: MyBatisTest
+-------------------------------------------------------------------------------
+Tests run: 8, Failures: 0, Errors: 8, Skipped: 0, Time elapsed: 0.527 s <<< FAILURE! - in MyBatisTest
+testqueryByName2(MyBatisTest)  Time elapsed: 0.298 s  <<< ERROR!
+org.apache.ibatis.builder.IncompleteElementException: Could not find result map com.po.Student
+	at MyBatisTest.testqueryByName2(MyBatisTest.java:65)
+Caused by: java.lang.IllegalArgumentException: Result Maps collection does not contain value for com.po.Student
+	at MyBatisTest.testqueryByName2(MyBatisTest.java:65)
+
+testqueryByIdBieMing(MyBatisTest)  Time elapsed: 0.028 s  <<< ERROR!
+org.apache.ibatis.builder.IncompleteElementException: Could not find result map com.po.Student
+	at MyBatisTest.testqueryByIdBieMing(MyBatisTest.java:125)
+Caused by: java.lang.IllegalArgumentException: Result Maps collection does not contain value for com.po.Student
+	at MyBatisTest.testqueryByIdBieMing(MyBatisTest.java:125)
+
+testdeleteStudent(MyBatisTest)  Time elapsed: 0.022 s  <<< ERROR!
+org.apache.ibatis.builder.IncompleteElementException: Could not find result map com.po.Student
+	at MyBatisTest.testdeleteStudent(MyBatisTest.java:112)
+Caused by: java.lang.IllegalArgumentException: Result Maps collection does not contain value for com.po.Student
+	at MyBatisTest.testdeleteStudent(MyBatisTest.java:112)
+
+testInsertStudent(MyBatisTest)  Time elapsed: 0.023 s  <<< ERROR!
+org.apache.ibatis.builder.IncompleteElementException: Could not find result map com.po.Student
+	at MyBatisTest.testInsertStudent(MyBatisTest.java:82)
+Caused by: java.lang.IllegalArgumentException: Result Maps collection does not contain value for com.po.Student
+	at MyBatisTest.testInsertStudent(MyBatisTest.java:82)
+
+testqueryByMany(MyBatisTest)  Time elapsed: 0.034 s  <<< ERROR!
+org.apache.ibatis.builder.IncompleteElementException: Could not find result map com.po.Student
+	at MyBatisTest.testqueryByMany(MyBatisTest.java:139)
+Caused by: java.lang.IllegalArgumentException: Result Maps collection does not contain value for com.po.Student
+	at MyBatisTest.testqueryByMany(MyBatisTest.java:139)
+
+testqueryByName(MyBatisTest)  Time elapsed: 0.032 s  <<< ERROR!
+org.apache.ibatis.builder.IncompleteElementException: Could not find result map com.po.Student
+	at MyBatisTest.testqueryByName(MyBatisTest.java:52)
+Caused by: java.lang.IllegalArgumentException: Result Maps collection does not contain value for com.po.Student
+	at MyBatisTest.testqueryByName(MyBatisTest.java:52)
+
+testqueryById(MyBatisTest)  Time elapsed: 0.029 s  <<< ERROR!
+org.apache.ibatis.builder.IncompleteElementException: Could not find result map com.po.Student
+	at MyBatisTest.testqueryById(MyBatisTest.java:41)
+Caused by: java.lang.IllegalArgumentException: Result Maps collection does not contain value for com.po.Student
+	at MyBatisTest.testqueryById(MyBatisTest.java:41)
+
+testupdateStudent(MyBatisTest)  Time elapsed: 0.028 s  <<< ERROR!
+org.apache.ibatis.builder.IncompleteElementException: Could not find result map com.po.Student
+	at MyBatisTest.testupdateStudent(MyBatisTest.java:98)
+Caused by: java.lang.IllegalArgumentException: Result Maps collection does not contain value for com.po.Student
+	at MyBatisTest.testupdateStudent(MyBatisTest.java:98)
+
