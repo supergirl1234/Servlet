@@ -1,0 +1,23 @@
+#server:
+#   port: 8081    #这样可以改变端口号，在yml文件中这样写
+
+
+#userinfo:
+#    userName: jerry
+ #   userAge: 12
+#    school: true
+#    list:
+ #     - value1
+ #     - value2
+ #     - value3
+  #    - value4
+  #  map:
+ #     name: 张三
+ #     age: 12
+  #    gender: male
+  #  orders:
+  #    Id: 1
+ #     OrderName
+
+
+ #这些配置既可以写在yml文件中又可以写在properties文件中，只是写的形式有些不同
