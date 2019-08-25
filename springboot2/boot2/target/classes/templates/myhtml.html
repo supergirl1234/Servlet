@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+   <!--如何取数据-->
+
+   <table border="1">
+   <tr>
+       <td>username</td>
+       <td>userAddress</td>
+       <td>userGender</td>
+   </tr>
+       <!--循环-->
+   <tr th:each="user : ${userlistKey}">
+       <td th:text="${user.getUsername()}"></td>
+       <td th:text="${user.getUserAddress()}"></td>
+       <td th:text="${user.gender ?'male':'female'}"></td>
+   </tr>
+   </table>
+
+
+   <!--switch case-->
+   <ul th:switch="${genderKey}">
+       <li th:case="${testgenderKey}">man</li>
+       <li th:case="2">woman</li>
+       <li th:case="*">hehe</li>
+
+   </ul>
+
+
+   <div th:unless="not ${userlistKey}">
+       userList is null(1)  <!--出现在屏幕上-->
+   </div>
+
+   <div th:if="not ${userlistKey}">
+       userList is null(2)<!--没有出现在屏幕上-->
+   </div>
+
+  <p>
+      <h3 th:replace="header :: my_frag"></h3>
+  </p>
+
+
+
+
+
+
+</body>
+</html>
