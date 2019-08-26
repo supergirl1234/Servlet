@@ -8,7 +8,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="boot2" />
         <module name="boot3" />
-        <module name="boot4" />
         <module name="boot5" />
       </profile>
     </annotationProcessing>

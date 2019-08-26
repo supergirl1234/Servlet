@@ -1,0 +1,11 @@
+user:
+  id: 1
+  name: 张三
+  list:
+     - key1
+     - key2
+     - key3
+  map:
+    age: 12
+    school: true
+    ying: ok

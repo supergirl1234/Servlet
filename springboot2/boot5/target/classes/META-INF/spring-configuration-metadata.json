@@ -1,0 +1,37 @@
+{
+  "groups": [
+    {
+      "name": "user",
+      "type": "com.boot5.po.User",
+      "sourceType": "com.boot5.po.User"
+    }
+  ],
+  "properties": [
+    {
+      "name": "user.group",
+      "type": "com.boot5.po.Group",
+      "sourceType": "com.boot5.po.User"
+    },
+    {
+      "name": "user.id",
+      "type": "java.lang.Integer",
+      "sourceType": "com.boot5.po.User"
+    },
+    {
+      "name": "user.list",
+      "type": "java.util.List",
+      "sourceType": "com.boot5.po.User"
+    },
+    {
+      "name": "user.map",
+      "type": "java.util.Map",
+      "sourceType": "com.boot5.po.User"
+    },
+    {
+      "name": "user.name",
+      "type": "java.lang.String",
+      "sourceType": "com.boot5.po.User"
+    }
+  ],
+  "hints": []
+}

@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/boot2/boot2.iml" filepath="$PROJECT_DIR$/boot2/boot2.iml" />
       <module fileurl="file://$PROJECT_DIR$/boot3/boot3.iml" filepath="$PROJECT_DIR$/boot3/boot3.iml" />
-      <module fileurl="file://$PROJECT_DIR$/boot4/boot4.iml" filepath="$PROJECT_DIR$/boot4/boot4.iml" />
       <module fileurl="file://$PROJECT_DIR$/boot5/boot5.iml" filepath="$PROJECT_DIR$/boot5/boot5.iml" />
     </modules>
   </component>
